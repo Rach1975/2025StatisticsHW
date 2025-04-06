@@ -13,6 +13,6 @@ library(readxl)
 
 # 导入数据并分析数据 -----------------------------------------------------------------
 
-data <- read_excel("bank-additional.xlsx")
+data <- read_excel("bank.xlsx")
 
 

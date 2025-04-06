@@ -4,8 +4,10 @@
 
 ## 2025/4/6
 
-- 使用 bank-additional.csv 作为数据集
--
+- 使用 bank.csv 作为数据集
+- 对数据进行清理
+- 绘图分析和计算描述性统计量
+- 将结果整理到 word 文档
 
 ### 关于数据集的说明
 
@@ -13,10 +15,10 @@
 
 Input variables:
 
-- 1-8 bank client data
-- 9-12 related with the last contact of the current campaign
-- 13-16 other attributes
-- 17 Output variable (desired target)
+- 1-8 bank client data 客户数据
+- 9-12 related with the last contact of the current campaign 与上次的促销活动相关
+- 13-16 other attributes 其他属性
+- 17 Output variable (desired target) 结果变量
 
 1. age (numeric)
 2. job : type of job (categorical: "admin.","unknown","unemployed","management","housemaid","entrepreneur","student","blue-collar","self-employed","retired","technician","services")
@@ -45,3 +47,18 @@ Input variables:
 
 - 定性变量：job, marital, education, default, housing, loan, contact, month, day, poutcome, y
 - 定量变量：age, duration, campaign, pdays, previous
+
+### 绘图思路
+
+**描述客户画像**
+
+- 直方图：age
+- 条形图：job
+- 饼图：education
+
+**描述上次促销活动情况**
+Blank
+
+**描述其他属性**
+
+### 疑问
