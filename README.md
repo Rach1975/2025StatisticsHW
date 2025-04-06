@@ -45,7 +45,7 @@ Input variables:
 #### 变量说明
 
 - 定性变量：job, marital, education, default, housing, loan, contact, month, day, poutcome, y
-- 定量变量：age, duration, campaign, pdays, previous
+- 定量变量：age, duration, campaign, pdays, previous, balance
 
 ### 绘图思路
 
@@ -54,10 +54,16 @@ Input variables:
 - 直方图：age
 - 条形图：job
 - 饼图：education
+- 堆栈分组条形图：按照 marital 分组，画 housing；按照 default 分组，画 loan
 
-**描述上次促销活动情况**
-Blank
+- **描述上次促销活动情况**
+  Blank
 
-**描述其他属性**
+  **描述其他属性**
+  Blank
 
 ### 疑问
+
+- 这个 average yearly balance 分组分起来还是挺麻烦的
+- 直方图：画 balance (500 一组，上溢 2400，下溢-80) 如何实现？
+- 职业条形图如何实现从高到低频数排序？(freq probably, some function would do)
