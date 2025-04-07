@@ -11,9 +11,15 @@ library(dplyr)
 library(readxl)
 
 
-# 导入数据并分析数据 -----------------------------------------------------------------
+# 导入数据 -----------------------------------------------------------------
 
 data <- read_excel("bank.xlsx")
+
+
+# 绘图 ----------------------------------------------------------------------
+
+
+# 客户画像
 
 # 年龄直方图
 ggplot(data, aes(x = age)) +
@@ -60,4 +66,65 @@ geom_bar(position = "fill") +  # 使用 "fill" 堆叠
                     labels = c("无个人贷款", "有个人贷款")) +
   theme_minimal()
 
-# 
+# 促销活动情况
+
+# 联系时长与是否订阅的箱线图
+ggplot(data, aes(x = y, y = duration)) +
+  geom_boxplot(fill = c("lightblue", "lightpink")) +
+  labs(title = "联系时长 vs 是否订阅", x = "是否订阅", y = "联系时长（秒）") +
+  ylim(0,2100) +
+  theme_minimal()
+
+# 每月联系次数的柱状图
+data %>%
+  count(month) %>%
+  ggplot(aes(x = reorder(month, n), y = n)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(title = "每月联系客户次数", x = "月份", y = "次数") +
+  theme_minimal()
+
+
+# 联系次数与订阅情况的堆栈分组条形图
+filtered_data <- data %>% filter(campaign <= 10)
+
+ggplot(filtered_data, aes(x = as.factor(campaign), fill = y)) +
+  geom_bar(position = "fill") +
+  labs(title = "不同联系次数下的订阅比例（前10次）",
+       x = "联系次数（campaign）",
+       y = "比例",
+       fill = "是否订阅") +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_manual(values = c("lightblue", "tomato")) +
+  theme_minimal()
+
+# 之前营销结果与是否订阅的堆栈分组条形图
+data %>%
+  count(poutcome, y) %>%
+  group_by(poutcome) %>%
+  mutate(prop = n / sum(n)) %>%
+  ggplot(aes(x = poutcome, y = prop, fill = y)) +
+  geom_bar(stat = "identity") +
+  scale_y_continuous(labels = scales::percent) +
+  labs(title = "之前营销结果 vs 当前订阅比例", 
+       x = "之前营销结果", 
+       y = "占比", 
+       fill = "是否订阅") +
+  scale_fill_manual(values = c("lightgray", "tomato")) +
+  theme_minimal()
+
+# 联系日期与时长散点图
+ggplot(data, aes(x = day, y = duration, color = y)) +
+  geom_jitter(alpha = 0.4) +
+  labs(title = "联系日期 vs 时长", x = "日期", y = "联系时长（秒）") +
+  scale_color_manual(values = c("gray", "red")) +
+  theme_minimal()
+# 这个地方要去掉一个极端值
+
+
+# 计算描述性统计量 ----------------------------------------------------------------
+
+vars <- data[, c("age", "duration", "campaign", "pdays", "previous", "balance")]
+summary(vars)
+sapply(vars, mean, na.rm = TRUE)
+sapply(vars, sd, na.rm = TRUE)

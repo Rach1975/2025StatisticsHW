@@ -56,14 +56,15 @@ Input variables:
 - 饼图：education
 - 堆栈分组条形图：按照 marital 分组，画 housing；按照 default 分组，画 loan
 
-- **描述上次促销活动情况**
-  Blank
+**描述上次促销活动情况**
 
-  **描述其他属性**
-  Blank
+- 联系时长与是否订阅的箱线图
+- 每月联系次数的柱状图
+- 联系次数与订阅情况的堆栈分组条形图
+- 之前营销结果与是否订阅的堆栈分组条形图
+- 联系日期与时长散点图
 
 ### 疑问
 
 - 这个 average yearly balance 分组分起来还是挺麻烦的
-- 直方图：画 balance (500 一组，上溢 2400，下溢-80) 如何实现？
-- 职业条形图如何实现从高到低频数排序？(freq probably, some function would do)
+- 直方图：画 balance (500 一组，上溢 2400，下溢-80) 如何 实现？
