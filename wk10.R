@@ -2,7 +2,7 @@
 # 1 总体均值的区间估计 ---------------------------------------------------------------
 # 估计客户总体的平均年龄
 
-t.test(data$age, conf.level = 0.95)
+t.test(data$age, mu = 30, conf.level = 0.95)
 
 #95 percent confidence interval: 40.85153 41.62954
 
@@ -10,9 +10,9 @@ t.test(data$age, conf.level = 0.95)
 # 2 单个总体均值的假设检验 -------------------------------------------------------------
 # 研究本次营销活动是否针对近期的活跃客户（即过去 15 天内是否联系过）
 
-t.test(data$pdays, mu = 15, alternative = "less")
+t.test(data$pdays, mu = 35, alternative = "less")
 
-# alternative hypothesis: true mean is less than 15
+# alternative hypothesis: true mean is less than 35
 
 
 # 3 两个总体均值的假设检验 -------------------------------------------------------------

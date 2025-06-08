@@ -1,5 +1,22 @@
 
 
+# 1 拟合优度检验 ----------------------------------------------------------------
+library(readxl)
+library(ggplot2)
+
+# data <- read_excel("bank.xlsx")
+
+# 频数表
+job_freq <- table(data$job)
+
+# 拟合均匀分布的卡方检验
+expected_probs <- rep(1/length(job_freq), length(job_freq))  # 均匀期望
+chisq_test <- chisq.test(job_freq, p = expected_probs)
+
+# 输出结果
+print(chisq_test)
+
+
 # 2 独立性检验 -----------------------------------------------------------------
 
 install.packages("vcd")
@@ -110,3 +127,16 @@ cat("\n斯皮尔曼相关系数分析结果：\n")
 print(spearman_test)
 
 
+# 5 回归分析 --------------------------------------------------------------------
+
+# 确保 y 是因子
+data$y <- as.factor(data$y)
+
+# 构建逻辑回归模型
+logit_model <- glm(y ~ age + balance + housing +
+                     duration + campaign + pdays,
+                   data = data,
+                   family = binomial)
+
+# 输出模型摘要
+summary(logit_model)

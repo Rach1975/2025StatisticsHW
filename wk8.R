@@ -114,11 +114,11 @@ data %>%
   theme_minimal()
 
 # 联系日期与时长散点图
-ggplot(data, aes(x = day, y = duration, color = y)) +
-  geom_jitter(alpha = 0.4) +
-  labs(title = "联系日期 vs 时长", x = "日期", y = "联系时长（秒）") +
-  scale_color_manual(values = c("gray", "red")) +
-  theme_minimal()
+#ggplot(data, aes(x = day, y = duration, color = y)) +
+  #geom_jitter(alpha = 0.4) +
+  #labs(title = "联系日期 vs 时长", x = "日期", y = "联系时长（秒）") +
+  #scale_color_manual(values = c("gray", "red")) +
+  #theme_minimal()
 # 这个地方要去掉一个极端值
 
 
