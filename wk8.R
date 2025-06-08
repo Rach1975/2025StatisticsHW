@@ -5,11 +5,13 @@
 install.packages("ggplot2")
 install.packages("dplyr")
 install.packages("readxl")
+install.packages("forcats") # install forcats
+
 
 library(ggplot2)
 library(dplyr)
 library(readxl)
-
+library(forcats)
 
 # 导入数据 -----------------------------------------------------------------
 
@@ -28,7 +30,7 @@ ggplot(data, aes(x = age)) +
   theme_minimal()
 
 # 职业条形图
-ggplot(data, aes(x = job)) +
+ggplot(data, aes(x = fct_infreq(job))) +
   geom_bar(fill = "steelblue", color = "white", alpha = 0.7) +
   labs(title = "客户职业分布条形图",
        x = "职业",
@@ -47,14 +49,33 @@ ggplot(education_counts, aes(x = "", y = n, fill = education)) +
   theme_void()
 
 # 婚姻状况与住房贷款的堆栈分组条形图
-ggplot(data, aes(x = marital, fill = housing)) +
-  geom_bar(position = "fill") +  # 使用 "fill" 堆叠
-  labs(title = "婚姻状况与住房贷款的关系",
-       x = "婚姻状况",
-       y = "比例") +
-  scale_fill_manual(values = c("blue", "orange"), 
-                    labels = c("无住房贷款", "有住房贷款")) +
+# Version 1
+#ggplot(data, aes(x = marital, fill = housing)) +
+#  geom_bar(position = "fill") +  # 使用 "fill" 堆叠
+#  labs(title = "婚姻状况与住房贷款的关系",
+#       x = "婚姻状况",
+#       y = "比例") +
+#  scale_fill_manual(values = c("blue", "orange"), 
+#                    labels = c("无住房贷款", "有住房贷款")) +
+#  theme_minimal()
+
+# Version 2
+df_prop <- data %>%
+  count(marital, housing) %>%
+  group_by(marital) %>%
+  mutate(prop = n / sum(n),
+         label = paste0(round(prop * 100, 1), "%"))
+
+ggplot(df_prop, aes(x = marital, y = prop, fill = housing)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = label), 
+            position = position_stack(vjust = 0.5), 
+            color = "white", size = 3.5) +
+  scale_fill_manual(values = c("skyblue", "tomato")) +
+  labs(title = "婚姻状况与住房贷款的关系（含百分比）",
+       x = "婚姻状况", y = "比例") +
   theme_minimal()
+
 
 # 信用违约与个人贷款的堆栈分组条形图
 ggplot(data, aes(x = default, fill = loan)) +
